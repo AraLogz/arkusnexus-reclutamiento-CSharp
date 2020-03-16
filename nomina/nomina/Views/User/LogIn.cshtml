@@ -1,0 +1,24 @@
+﻿@model nomina.Models.UserLogInModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="container">
+    <div class="card card-container">
+        <h2 class="titleLogin">Iniciar sesión</h2>
+        @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @class = "form-signin" }))
+        {
+            <div>
+                @Html.TextBoxFor(dl => dl.Email, new { @class = "form-control", @placeholder = "Email" })
+                @Html.ValidationMessageFor(dl => dl.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.PasswordFor(dl => dl.Password, new { @class = "form-control", @placeholder = "Contraseña" })
+                @Html.ValidationMessageFor(dl => dl.Password, "", new { @class = "text-danger" })
+            </div>
+            <input type="submit" value="Login" class="btn btn-signin" />
+        }
+    </div>
+</div>

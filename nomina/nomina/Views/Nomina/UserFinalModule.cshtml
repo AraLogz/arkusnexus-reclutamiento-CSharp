@@ -1,0 +1,10 @@
+﻿@model IEnumerable<nomina.Models.NominaModel>
+
+@{
+    ViewBag.Title = "LoggedIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Nombre</h2>
+
+@RenderPage("~/Views/Nomina/List.cshtml")

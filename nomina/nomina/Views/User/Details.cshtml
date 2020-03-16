@@ -1,0 +1,74 @@
+﻿@model nomina.Models.UserModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalles de Usuario</h2>
+
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IngresoBase)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IngresoBase)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DedAhorro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DedAhorro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DedDesayuno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DedDesayuno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "UserAdminModule")
+</p>

@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="nominaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Nomina">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nchar" MaxLength="36" Nullable="false" />
+          <Property Name="Mes" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NomUser">
+          <Key>
+            <PropertyRef Name="IdNom" />
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdNom" Type="nchar" MaxLength="36" Nullable="false" />
+          <Property Name="IdUser" Type="nchar" MaxLength="36" Nullable="false" />
+          <Property Name="DedPrestamo" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DedGas" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nchar" MaxLength="36" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nombre" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="ApellidoP" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="ApellidoM" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="IngresoBase" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DedDesayuno" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DedAhorro" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nchar" MaxLength="70" Nullable="false" />
+          <Property Name="Role" Type="int" />
+        </EntityType>
+        <EntityType Name="UserRoleMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nchar" MaxLength="36" />
+          <Property Name="RoleId" Type="int" />
+        </EntityType>
+        <Association Name="FK_IdNom_NomUser_ToNomima">
+          <End Role="Nomina" Type="Self.Nomina" Multiplicity="1" />
+          <End Role="NomUser" Type="Self.NomUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nomina">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NomUser">
+              <PropertyRef Name="IdNom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdUser_NomUser_ToUser">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="NomUser" Type="Self.NomUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NomUser">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleId_UserRoleMapping_ToRoles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="UserRoleMapping" Type="Self.UserRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoleMapping">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserId_UserRoleMapping_ToUser">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserRoleMapping" Type="Self.UserRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoleMapping">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="nominaDBModelStoreContainer">
+          <EntitySet Name="Nomina" EntityType="Self.Nomina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NomUser" EntityType="Self.NomUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoleMapping" EntityType="Self.UserRoleMapping" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_IdNom_NomUser_ToNomima" Association="Self.FK_IdNom_NomUser_ToNomima">
+            <End Role="Nomina" EntitySet="Nomina" />
+            <End Role="NomUser" EntitySet="NomUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdUser_NomUser_ToUser" Association="Self.FK_IdUser_NomUser_ToUser">
+            <End Role="User" EntitySet="User" />
+            <End Role="NomUser" EntitySet="NomUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleId_UserRoleMapping_ToRoles" Association="Self.FK_RoleId_UserRoleMapping_ToRoles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoleMapping" EntitySet="UserRoleMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserId_UserRoleMapping_ToUser" Association="Self.FK_UserId_UserRoleMapping_ToUser">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRoleMapping" EntitySet="UserRoleMapping" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="nominaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="nominaDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Nomina" EntityType="nominaDBModel.Nomina" />
+          <EntitySet Name="NomUser" EntityType="nominaDBModel.NomUser" />
+          <AssociationSet Name="FK_IdNom_NomUser_ToNomima" Association="nominaDBModel.FK_IdNom_NomUser_ToNomima">
+            <End Role="Nomina" EntitySet="Nomina" />
+            <End Role="NomUser" EntitySet="NomUser" />
+          </AssociationSet>
+          <EntitySet Name="Roles" EntityType="nominaDBModel.Roles" />
+          <EntitySet Name="UserRoleMapping" EntityType="nominaDBModel.UserRoleMapping" />
+          <AssociationSet Name="FK_RoleId_UserRoleMapping_ToRoles" Association="nominaDBModel.FK_RoleId_UserRoleMapping_ToRoles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoleMapping" EntitySet="UserRoleMapping" />
+          </AssociationSet>
+          <EntitySet Name="User" EntityType="nominaDBModel.User" />
+          <AssociationSet Name="FK_IdUser_NomUser_ToUser" Association="nominaDBModel.FK_IdUser_NomUser_ToUser">
+            <End Role="User" EntitySet="User" />
+            <End Role="NomUser" EntitySet="NomUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserId_UserRoleMapping_ToUser" Association="nominaDBModel.FK_UserId_UserRoleMapping_ToUser">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRoleMapping" EntitySet="UserRoleMapping" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Nomina">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="36" FixedLength="true" Unicode="true" />
+          <Property Name="Mes" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="NomUser" Relationship="nominaDBModel.FK_IdNom_NomUser_ToNomima" FromRole="Nomina" ToRole="NomUser" />
+        </EntityType>
+        <EntityType Name="NomUser">
+          <Key>
+            <PropertyRef Name="IdNom" />
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdNom" Type="String" Nullable="false" MaxLength="36" FixedLength="true" Unicode="true" />
+          <Property Name="IdUser" Type="String" Nullable="false" MaxLength="36" FixedLength="true" Unicode="true" />
+          <Property Name="DedPrestamo" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="DedGas" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="Nomina" Relationship="nominaDBModel.FK_IdNom_NomUser_ToNomima" FromRole="NomUser" ToRole="Nomina" />
+          <NavigationProperty Name="User" Relationship="nominaDBModel.FK_IdUser_NomUser_ToUser" FromRole="NomUser" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_IdNom_NomUser_ToNomima">
+          <End Type="nominaDBModel.Nomina" Role="Nomina" Multiplicity="1" />
+          <End Type="nominaDBModel.NomUser" Role="NomUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nomina">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NomUser">
+              <PropertyRef Name="IdNom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserRoleMapping" Relationship="nominaDBModel.FK_RoleId_UserRoleMapping_ToRoles" FromRole="Roles" ToRole="UserRoleMapping" />
+        </EntityType>
+        <EntityType Name="UserRoleMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="36" FixedLength="true" Unicode="true" />
+          <Property Name="RoleId" Type="Int32" />
+          <NavigationProperty Name="Roles" Relationship="nominaDBModel.FK_RoleId_UserRoleMapping_ToRoles" FromRole="UserRoleMapping" ToRole="Roles" />
+          <NavigationProperty Name="User" Relationship="nominaDBModel.FK_UserId_UserRoleMapping_ToUser" FromRole="UserRoleMapping" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_RoleId_UserRoleMapping_ToRoles">
+          <End Type="nominaDBModel.Roles" Role="Roles" Multiplicity="0..1" />
+          <End Type="nominaDBModel.UserRoleMapping" Role="UserRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoleMapping">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="36" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="ApellidoP" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="ApellidoM" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="IngresoBase" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="DedDesayuno" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="DedAhorro" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="70" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="NomUser" Relationship="nominaDBModel.FK_IdUser_NomUser_ToUser" FromRole="User" ToRole="NomUser" />
+          <NavigationProperty Name="UserRoleMapping" Relationship="nominaDBModel.FK_UserId_UserRoleMapping_ToUser" FromRole="User" ToRole="UserRoleMapping" />
+          <Property Name="Role" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_IdUser_NomUser_ToUser">
+          <End Type="nominaDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="nominaDBModel.NomUser" Role="NomUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NomUser">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserId_UserRoleMapping_ToUser">
+          <End Type="nominaDBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="nominaDBModel.UserRoleMapping" Role="UserRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoleMapping">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="nominaDBModelStoreContainer" CdmEntityContainer="nominaDBEntities">
+          <EntitySetMapping Name="Nomina">
+            <EntityTypeMapping TypeName="nominaDBModel.Nomina">
+              <MappingFragment StoreEntitySet="Nomina">
+                <ScalarProperty Name="Mes" ColumnName="Mes" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NomUser">
+            <EntityTypeMapping TypeName="nominaDBModel.NomUser">
+              <MappingFragment StoreEntitySet="NomUser">
+                <ScalarProperty Name="DedGas" ColumnName="DedGas" />
+                <ScalarProperty Name="DedPrestamo" ColumnName="DedPrestamo" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="IdNom" ColumnName="IdNom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="nominaDBModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoleMapping">
+            <EntityTypeMapping TypeName="nominaDBModel.UserRoleMapping">
+              <MappingFragment StoreEntitySet="UserRoleMapping">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="nominaDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DedAhorro" ColumnName="DedAhorro" />
+                <ScalarProperty Name="DedDesayuno" ColumnName="DedDesayuno" />
+                <ScalarProperty Name="IngresoBase" ColumnName="IngresoBase" />
+                <ScalarProperty Name="ApellidoM" ColumnName="ApellidoM" />
+                <ScalarProperty Name="ApellidoP" ColumnName="ApellidoP" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

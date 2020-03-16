@@ -1,0 +1,96 @@
+﻿@model nomina.Models.NomUserDetailsModel
+
+@{
+    ViewBag.Title = "ConsultarUser";
+}
+
+<h2>Consultar Nómina</h2>
+
+<div>
+    <h4>Nómina de Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IngresoBase)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IngresoBase)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DedPrestamo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DedPrestamo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalPercep)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalPercep)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DedAhorro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DedAhorro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DedDesayuno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DedDesayuno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DedGas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DedGas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalDeduc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalDeduc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Depositado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Depositado)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if (Session["Role"].ToString() == "0")
+    {
+        @Html.ActionLink("Back to List", "NomUserList", new { id = Model.IdNom })
+    }
+    else
+    {
+        @Html.ActionLink("Back to List", "UserFinalModule", new { id = Model.IdUser})
+    }
+</p>

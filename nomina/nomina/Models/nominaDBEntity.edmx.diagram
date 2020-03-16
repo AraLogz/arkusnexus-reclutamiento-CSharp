@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9b5d04a0ee9047c9aa293291bace1284" Name="Diagram1">
+        <EntityTypeShape EntityType="nominaDBModel.Nomina" Width="1.5" PointX="5.125" PointY="0.5" />
+        <EntityTypeShape EntityType="nominaDBModel.NomUser" Width="1.5" PointX="3" PointY="1.375" />
+        <AssociationConnector Association="nominaDBModel.FK_IdNom_NomUser_ToNomima" />
+        <EntityTypeShape EntityType="nominaDBModel.Roles" Width="1.5" PointX="4.375" PointY="4.375" />
+        <EntityTypeShape EntityType="nominaDBModel.UserRoleMapping" Width="1.5" PointX="7.25" PointY="2.125" />
+        <AssociationConnector Association="nominaDBModel.FK_RoleId_UserRoleMapping_ToRoles" />
+        <EntityTypeShape EntityType="nominaDBModel.User" Width="1.5" PointX="0.75" PointY="1.125" />
+        <AssociationConnector Association="nominaDBModel.FK_IdUser_NomUser_ToUser" />
+        <AssociationConnector Association="nominaDBModel.FK_UserId_UserRoleMapping_ToUser" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
